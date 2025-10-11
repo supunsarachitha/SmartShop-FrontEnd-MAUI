@@ -12,10 +12,18 @@
         Route="LoginPage"
         FlyoutItemIsVisible="False" />
 
+    <!--<ShellContent
+        Title="ResetPassword"
+        ContentTemplate="{DataTemplate local:ResetPasswordPage}"
+        Route="ResetPasswordPage"
+        FlyoutItemIsVisible="False" 
+        />-->
+
     <ShellContent
         Title="HomePage"
         ContentTemplate="{DataTemplate local:HomePage}"
         Route="HomePage" />
+    
 
     <MenuItem
         Text="Logout"

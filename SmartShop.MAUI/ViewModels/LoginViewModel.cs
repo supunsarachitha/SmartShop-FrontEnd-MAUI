@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SmartShop.MAUI.Models.Responses;
 using SmartShop.MAUI.Services;
+using SmartShop.MAUI.Views;
 using System.Windows.Input;
 
 namespace SmartShop.MAUI.ViewModels
@@ -39,25 +40,37 @@ namespace SmartShop.MAUI.ViewModels
 
             try
             {
-                var result = await _authService.LoginAsync<LoginResponse>(Username, Password);
-
-                if (result != null && result.Success && result.Data != null)
+                if (string.IsNullOrWhiteSpace(Username))
                 {
-                    // Extract the token
-                    string token = result.Data.Token;
-
-                    Console.WriteLine($"Token: {token}");
-
-                    // Navigate to HomePage.xaml
-                    await Shell.Current.GoToAsync("//HomePage");
-
-
-                    //Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
+                    AlertMessage = $"Login failed: Username cannot be empty.";
+                } 
+                else if (string.IsNullOrWhiteSpace(Password))
+                {
+                    AlertMessage = $"Login failed: Password cannot be empty.";
                 }
                 else
                 {
-                    AlertMessage = result?.Message ?? "Invalid username or password.";
+                    var result = await _authService.LoginAsync<LoginResponse>(Username, Password);
+
+                    if (result != null && result.Success && result.Data != null)
+                    {
+                        // Extract the token
+                        string token = result.Data.Token;
+
+                        Console.WriteLine($"Token: {token}");
+
+                        // Navigate to HomePage.xaml
+                        await Shell.Current.GoToAsync("//HomePage", true);
+
+
+                        //Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
+                    }
+                    else
+                    {
+                        AlertMessage = result?.Message ?? "Invalid username or password.";
+                    }
                 }
+                    
             }
             catch (Exception ex)
             {
@@ -70,9 +83,11 @@ namespace SmartShop.MAUI.ViewModels
         }
 
         [RelayCommand]
-        private void ForgotPassword()
-        {
-            // Implement forgot password logic
+        private async Task ForgotPassword()
+        { 
+            // Navigate to ResetPasswordPage 
+            await Shell.Current.GoToAsync(nameof(ResetPasswordPage), true);
+             
         }
          
     }

@@ -17,12 +17,6 @@ namespace SmartShop.MAUI.Services
 
         public async Task<ApplicationResponse<T>> LoginAsync<T>(string username, string password)
         {
-            if (string.IsNullOrWhiteSpace(username))
-                throw new ArgumentException("Username cannot be null or empty.", nameof(username));
-            
-            if (string.IsNullOrWhiteSpace(password))
-                throw new ArgumentException("Password cannot be null or empty.", nameof(password));
-
             var url = $"{_baseUrl}/api/Auth/login";
 
             var data = new LoginRequest
