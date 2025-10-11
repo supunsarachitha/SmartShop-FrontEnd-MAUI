@@ -1,5 +1,5 @@
 # SmartShop.MAUI
-
+[![.NET MAUI Build](https://github.com/supunsarachitha/SmartShop-FrontEnd-MAUI/actions/workflows/dotnet-desktop.yml/badge.svg)](https://github.com/supunsarachitha/SmartShop-FrontEnd-MAUI/actions/workflows/dotnet-desktop.yml)
 
 - **Architecture**: Follows MVVM for clear separation of concerns.
 - **Services**: Modular, extendable classes for API endpoints.
