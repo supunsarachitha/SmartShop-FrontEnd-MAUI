@@ -1,4 +1,4 @@
-name: Build .NET MAUI Windows App
+name: Build MAUI Windows App
 
 on:
   push:
@@ -7,22 +7,33 @@ on:
     branches: [ main ]
 
 jobs:
-  build-maui-windows:
+  build:
+    name: Build for Windows
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '9.0.x' # Use the latest .NET 9 SDK
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '7.0.x'
 
-      - name: Display .NET SDKs
-        run: dotnet --list-sdks
+    - name: Install MAUI Workload
+      run: dotnet workload install maui
 
-      - name: Install MAUI workload
-        run: dotnet workload install maui
+    - name: Restore dependencies
+      run: dotnet restore
 
-      - name: Build MAUI Windows App
-        run: dotnet build --configuration Release -f:net7.0-windows
+    - name: Build project
+      run: dotnet build SmartShop.MAUI.sln --configuration Release -f:net7.0-windows
+
+    - name: Publish app
+      run: dotnet publish SmartShop.MAUI.sln --configuration Release -f:net7.0-windows --output ./publish
+
+    - name: Upload published app
+      uses: actions/upload-artifact@v4
+      with:
+        name: SmartShop-Windows
+        path: ./publish
