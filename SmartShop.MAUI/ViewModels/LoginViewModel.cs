@@ -1,8 +1,10 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.ApplicationModel;
 using SmartShop.MAUI.Models.Responses;
 using SmartShop.MAUI.Services;
 using SmartShop.MAUI.Views;
+using System.Net.Http;
 using System.Windows.Input;
 
 namespace SmartShop.MAUI.ViewModels
@@ -10,6 +12,7 @@ namespace SmartShop.MAUI.ViewModels
     public partial class LoginViewModel : ObservableObject
     {
         private readonly AuthService _authService;
+        private readonly HttpClient _httpClient;
 
         [ObservableProperty]
         private string username = string.Empty;
@@ -23,9 +26,42 @@ namespace SmartShop.MAUI.ViewModels
         [ObservableProperty]
         private string alertMessage = string.Empty;
 
+        [ObservableProperty]
+        private string appVersion;
+
+        [ObservableProperty]
+        private string serverStatus = "Checking...";
+
         public LoginViewModel(AuthService authService)
         {
-            _authService = authService; 
+            _authService = authService;
+            //_httpClient = new HttpClient();
+            appVersion = VersionTracking.CurrentVersion;
+
+            // Start checking server status
+            CheckServerStatus();
+        }
+
+        private async void CheckServerStatus()
+        {
+            while (true)
+            {
+                try
+                {
+                    // Replace with your server health check endpoint
+                    //var response = await _httpClient.GetAsync("https://yourserver.com/health");
+                    //serverStatus = response.IsSuccessStatusCode ? "Online" : "Offline";
+
+                    serverStatus = "Online";
+                }
+                catch
+                {
+                    serverStatus = "Offline";
+                }
+
+                // Wait for 30 seconds before checking again
+                await Task.Delay(30000);
+            }
         }
 
         [RelayCommand]
@@ -74,7 +110,8 @@ namespace SmartShop.MAUI.ViewModels
             }
             catch (Exception ex)
             {
-                AlertMessage = $"Login failed: {ex.Message}";
+                AlertMessage = $"Login failed";
+                Console.WriteLine(ex);
             }
             finally
             {
