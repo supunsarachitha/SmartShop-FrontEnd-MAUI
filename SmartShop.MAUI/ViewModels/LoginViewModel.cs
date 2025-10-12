@@ -69,10 +69,12 @@ namespace SmartShop.MAUI.ViewModels
         /// <summary>
         /// Continuously monitors the server status and updates the <see cref="ServerStatus"/> property.
         /// </summary>
-        /// <remarks>This method periodically checks the server's availability by invoking the               
-        /// property is updated to "Online" if the server is reachable, or "Offline" otherwise.If an exception
-        /// occurs during the status check, the server status is set to "Offline".The method runs
-        /// indefinitely, with a delay of 30 seconds between each status check.</remarks>
+        /// <remarks>
+        /// This method periodically checks the server's availability by invoking <c>_serverStatusService.IsServerOnlineAsync()</c>.
+        /// The <see cref="ServerStatus"/> property is updated to "Online" if the server is reachable, or "Offline" otherwise.
+        /// If an exception occurs during the status check, the server status is set to "Offline".
+        /// The method runs indefinitely, with a delay of 30 seconds between each status check.
+        /// </remarks>
         private async Task CheckServerStatus()
         {
             try
