@@ -80,13 +80,13 @@
 
                 <!-- Settings -->
                 <Border Grid.Row="2" Grid.Column="0"
-        Shadow="True"
-        Style="{StaticResource HomePageBorderStyle}">
+                        Shadow="True"
+                        Style="{StaticResource HomePageBorderStyle}">
                     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
                         <Label Text="&#xf013;"
-               Style="{StaticResource HomePageIconStyle}" />
+                               Style="{StaticResource HomePageIconStyle}" />
                         <Label Text="Settings"
-               Style="{StaticResource HomePageLabelStyle}" />
+                               Style="{StaticResource HomePageLabelStyle}" />
                     </VerticalStackLayout>
                 </Border>
 

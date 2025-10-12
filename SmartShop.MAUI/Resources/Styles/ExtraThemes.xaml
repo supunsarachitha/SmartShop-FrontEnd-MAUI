@@ -45,7 +45,6 @@
 
 
     <!-- Home Page Background Brush -->
-    <!-- Home Page Background Brush -->
     <LinearGradientBrush x:Key="HomePageBackgroundBrush" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Color="#EAF2F8" Offset="0.0" />
         <!-- Soft Light Blue -->
@@ -57,15 +56,15 @@
 
     <!-- Colors -->
     <Color x:Key="PrimaryTextColor">#0056B3</Color>
-    <!-- Dark Gray for better readability -->
+    <!-- Dark Blue for better readability -->
     <Color x:Key="AccentColor">#FFFFFF</Color>
-    <!-- Rich Blue for accents -->
+    <!-- White for accents -->
 
     <!-- Border Style -->
     <Style x:Key="HomePageBorderStyle" TargetType="Border">
         <Setter Property="StrokeShape" Value="RoundRectangle 16" />
         <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
-        <!-- Rich Blue -->
+        <!-- White for accents -->
         <Setter Property="Padding" Value="15" />
         <Setter Property="Shadow">
             <Setter.Value>
