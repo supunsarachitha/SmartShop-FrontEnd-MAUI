@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Logging;
 using SmartShop.MAUI.Models.Responses;
 using SmartShop.MAUI.Services;
 using SmartShop.MAUI.Views;
@@ -10,6 +11,7 @@ namespace SmartShop.MAUI.ViewModels
     {
         private readonly AuthService _authService;
         private readonly ServerStatusService _serverStatusService;
+        private readonly ILogger<LoginViewModel> _logger;
 
         private string _username = string.Empty;
         public string Username
@@ -53,14 +55,15 @@ namespace SmartShop.MAUI.ViewModels
             set => SetProperty(ref _serverStatus, value);
         }
 
-        public LoginViewModel(AuthService authService, ServerStatusService serverStatusService)
+        public LoginViewModel(AuthService authService, ServerStatusService serverStatusService, ILogger<LoginViewModel> logger)
         {
             _authService = authService;
             _serverStatusService = serverStatusService;
+            _logger = logger;
             AppVersion = VersionTracking.CurrentVersion;
 
             // Start checking server status
-            CheckServerStatus();
+            _ = CheckServerStatus();
         }
 
         /// <summary>
@@ -70,25 +73,20 @@ namespace SmartShop.MAUI.ViewModels
         /// property is updated to "Online" if the server is reachable, or "Offline" otherwise.If an exception
         /// occurs during the status check, the server status is set to "Offline".The method runs
         /// indefinitely, with a delay of 30 seconds between each status check.</remarks>
-        private async void CheckServerStatus()
+        private async Task CheckServerStatus()
         {
-            while (true)
+            try
             {
-                try
-                {
 
-                    var isOnline = await _serverStatusService.IsServerOnlineAsync();
-                    if (isOnline)
-                        ServerStatus = "Online";
-                    else
-                        ServerStatus = "Offline";
-                }
-                catch
-                {
+                var isOnline = await _serverStatusService.IsServerOnlineAsync();
+                if (isOnline)
+                    ServerStatus = "Online";
+                else
                     ServerStatus = "Offline";
-                }
-
-                await Task.Delay(30000);
+            }
+            catch
+            {
+                ServerStatus = "Offline";
             }
         }
 
@@ -110,13 +108,17 @@ namespace SmartShop.MAUI.ViewModels
 
             try
             {
+                _logger.LogInformation("Login attempt started for user: {Username}", Username);
+
                 if (string.IsNullOrWhiteSpace(Username))
                 {
                     AlertMessage = "Login failed: Username cannot be empty.";
+                    _logger.LogWarning("Login failed: Username was empty.");
                 }
                 else if (string.IsNullOrWhiteSpace(Password))
                 {
                     AlertMessage = "Login failed: Password cannot be empty.";
+                    _logger.LogWarning("Login failed: Password was empty.");
                 }
                 else
                 {
@@ -128,23 +130,26 @@ namespace SmartShop.MAUI.ViewModels
 
                         if (!string.IsNullOrEmpty(token))
                         {
+                            _logger.LogInformation("Login successful for user: {Username}", Username);
                             await Shell.Current.GoToAsync("//HomePage", true);
                         }
                         else
                         {
                             AlertMessage = "Login failed";
+                            _logger.LogWarning("Login failed: Token was null or empty.");
                         }
                     }
                     else
                     {
                         AlertMessage = result?.Message ?? "Invalid username or password.";
+                        _logger.LogWarning("Login failed: {Message}", result?.Message);
                     }
                 }
             }
             catch (Exception ex)
             {
                 AlertMessage = "Login failed";
-                Console.WriteLine(ex);
+                _logger.LogError(ex, "An error occurred during login for user: {Username}", Username);
             }
             finally
             {
@@ -157,6 +162,7 @@ namespace SmartShop.MAUI.ViewModels
         [RelayCommand]
         private async Task ForgotPassword()
         {
+            _logger.LogInformation("Navigating to Forgot Password page.");
             await Shell.Current.GoToAsync(nameof(ResetPasswordPage), true);
         }
 
@@ -172,14 +178,16 @@ namespace SmartShop.MAUI.ViewModels
         {
             try
             {
+                _logger.LogInformation("Attempting to send password reset link for user: {Username}", Username);
                 await _authService.SendPasswordResetLinkAsync(Username);
 
                 AlertMessage = "Password reset link sent successfully.";
+                _logger.LogInformation("Password reset link sent successfully for user: {Username}", Username);
             }
             catch (Exception ex)
             {
                 AlertMessage = "Failed to send password reset link.";
-                Console.WriteLine(ex);
+                _logger.LogError(ex, "An error occurred while sending password reset link for user: {Username}", Username);
             }
         }
     }
