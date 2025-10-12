@@ -5,7 +5,9 @@
              x:Class="SmartShop.MAUI.Views.HomePage"
              x:DataType="vm:HomePageViewModel"
              Title="Home"
-             Background="{StaticResource HomePageBackgroundBrush}">
+             Background="{StaticResource HomePageBackgroundBrush}"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False">
 
     <ContentPage.Content>
         <VerticalStackLayout Padding="20" Spacing="40">
