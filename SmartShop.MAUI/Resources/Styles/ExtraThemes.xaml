@@ -3,7 +3,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" >
 
-    <!-- Define the LinearGradientBrush -->
+    <!-- Login Page-->
+    
     <LinearGradientBrush x:Key="LoginPageBackgroundBrush" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Color="#000428" Offset="0.0" />
         <!-- Midnight Blue -->
@@ -13,6 +14,7 @@
         <!-- Light Cyan -->
     </LinearGradientBrush>
 
+    <!-- Login Button Style -->
     <Style x:Key="LoginButtonStyle" TargetType="Button">
         <Setter Property="TextColor" Value="#FFFFFF" />
         <Setter Property="BackgroundColor" Value="#000428" />
@@ -35,6 +37,59 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
+    </Style>
+ 
+    
+    
+<!--home page-->
+
+
+    <!-- Home Page Background Brush -->
+    <LinearGradientBrush x:Key="HomePageBackgroundBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#EAF2F8" Offset="0.0" />
+        <!-- Soft Light Blue -->
+        <GradientStop Color="#D4E4F2" Offset="0.5" />
+        <!-- Muted Blue-Gray -->
+        <GradientStop Color="#B8D0E8" Offset="1.0" />
+        <!-- Subtle Blue -->
+    </LinearGradientBrush>
+
+    <!-- Colors -->
+    <Color x:Key="PrimaryTextColor">#0056B3</Color>
+    <!-- Dark Blue for better readability -->
+    <Color x:Key="AccentColor">#FFFFFF</Color>
+    <!-- White for accents -->
+
+    <!-- Border Style -->
+    <Style x:Key="HomePageBorderStyle" TargetType="Border">
+        <Setter Property="StrokeShape" Value="RoundRectangle 16" />
+        <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
+        <!-- White for accents -->
+        <Setter Property="Padding" Value="15" />
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="#888888" Opacity="0.5" Offset="5,5" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Shared Label Style -->
+    <Style x:Key="BaseLabelStyle" TargetType="Label">
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
+    </Style>
+
+    <!-- Label Style -->
+    <Style x:Key="HomePageLabelStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <!-- Icon Label Style -->
+    <Style x:Key="HomePageIconStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}">
+        <Setter Property="FontFamily" Value="FontAwesomeSolid" />
+        <Setter Property="FontSize" Value="48" />
+        <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
     </Style>
 
 </ResourceDictionary>
