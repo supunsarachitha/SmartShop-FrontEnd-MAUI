@@ -18,7 +18,8 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
-            builder.UseMauiCommunityToolkit();
+
+        builder.UseMauiCommunityToolkit();
 
 #if DEBUG
 		builder.Logging.AddDebug();
@@ -26,10 +27,18 @@ public static class MauiProgram
 
         // Register services
         builder.Services.AddSingleton<ApiService>();
+
         builder.Services.AddSingleton<AuthService>(sp =>
         {
             var apiService = sp.GetRequiredService<ApiService>();
-            return new AuthService(apiService, AppConstants.ApiBaseUrl);
+            var logger = sp.GetRequiredService<ILogger<AuthService>>();
+            return new AuthService(apiService, AppConstants.ApiBaseUrl, logger);
+        });
+
+        builder.Services.AddSingleton<ServerStatusService>(sp =>
+        {
+            var serverStatusService = sp.GetRequiredService<ApiService>();
+            return new ServerStatusService(serverStatusService, AppConstants.ApiBaseUrl);
         });
 
         // Register view models

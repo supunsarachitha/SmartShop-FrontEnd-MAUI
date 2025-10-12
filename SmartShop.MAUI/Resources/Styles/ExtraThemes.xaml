@@ -3,6 +3,16 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" >
 
+    <!-- Define the LinearGradientBrush -->
+    <LinearGradientBrush x:Key="LoginPageBackgroundBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#000428" Offset="0.0" />
+        <!-- Midnight Blue -->
+        <GradientStop Color="#004e92" Offset="0.5" />
+        <!-- Deep Sky Blue -->
+        <GradientStop Color="#00c6ff" Offset="1.0" />
+        <!-- Light Cyan -->
+    </LinearGradientBrush>
+
     <Style x:Key="LoginButtonStyle" TargetType="Button">
         <Setter Property="TextColor" Value="#FFFFFF" />
         <Setter Property="BackgroundColor" Value="#000428" />

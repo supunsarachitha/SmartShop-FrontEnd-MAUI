@@ -6,59 +6,69 @@
              x:Class="SmartShop.MAUI.Views.LoginPage" 
              BackgroundColor="Transparent"
              NavigationPage.HasNavigationBar="False"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
+             x:DataType="vm:LoginViewModel">
 
     <ContentPage.Background>
-        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Color="#000428" Offset="0.0" />
-            <!-- Midnight Blue -->
-            <GradientStop Color="#004e92" Offset="0.5" />
-            <!-- Deep Sky Blue -->
-            <GradientStop Color="#00c6ff" Offset="1.0" />
-            <!-- Light Cyan -->
-        </LinearGradientBrush>
+    <StaticResource Key="LoginPageBackgroundBrush" />
     </ContentPage.Background>
 
-    <ScrollView>
-        <StackLayout Padding="30" Spacing="20" VerticalOptions="Center">
+    <Grid>
+        <!-- Main Content -->
+        <ScrollView Grid.Row="0">
+            <StackLayout Padding="30" Spacing="20" VerticalOptions="Center">
 
-            <Label Text="Welcome" 
-                   FontSize="24" 
-                   HorizontalOptions="Center"
+                <Label Text="Welcome" 
+                       FontSize="24" 
+                       HorizontalOptions="Center"
+                       TextColor="#FFFFFF" />
+
+                <Entry Placeholder="User Name"
+                       Text="{Binding Username}"
+                       BackgroundColor="#004e92" 
+                       TextColor="#FFFFFF" />
+
+                <Entry Placeholder="Password"
+                       Text="{Binding Password}"
+                       IsPassword="True"
+                       BackgroundColor="#004e92"  
+                       TextColor="#FFFFFF" />
+
+                <Label Text="{Binding AlertMessage}" 
+                       TextColor="#FFD700" 
+                       IsVisible="{Binding AlertMessage, Converter={StaticResource StringNotEmptyConverter}}" 
+                       HorizontalTextAlignment="Center"/>
+
+                <Button Text="Login"
+                        Command="{Binding LoginCommand}"
+                        Style="{StaticResource LoginButtonStyle}"
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" />
+
+                <Button Text="Forgot Password"
+                        Command="{Binding ForgotPasswordCommand}"
+                        BackgroundColor="Transparent"
+                        TextColor="#FFFFFF"  
+                        FontAttributes="Italic" />
+
+                <ActivityIndicator 
+                    IsRunning="{Binding IsBusy}" 
+                    IsVisible="{Binding IsBusy}"
+                    Color="#FFFFFF" />
+            </StackLayout>
+        </ScrollView>
+
+        <!-- App Version and Server Status -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Grid.Row="1" Spacing="10">
+            <Label Text="{Binding AppVersion}"
+                   FontSize="12"
                    TextColor="#FFFFFF" />
-
-            <Entry Placeholder="Username"
-                   Text="{Binding Username}"
-                   BackgroundColor="#004e92" 
+            <Label Text="|"
+                   FontSize="12"
                    TextColor="#FFFFFF" />
-
-            <Entry Placeholder="Password"
-                   Text="{Binding Password}"
-                   IsPassword="True"
-                   BackgroundColor="#004e92"  
-                   TextColor="#FFFFFF" />
-
-            <Label Text="{Binding AlertMessage}" 
-                   TextColor="#FFD700" 
-                   IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}" 
-                   HorizontalTextAlignment="Center"/>
-
-            <Button Text="Login"
-                    Command="{Binding LoginCommand}"
-                    Style="{StaticResource LoginButtonStyle}"
-                    IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" />
-
-            <Button Text="Forgot Password"
-                    Command="{Binding ForgotPasswordCommand}"
-                    BackgroundColor="Transparent"
-                    TextColor="#FFFFFF"  
-                    FontAttributes="Italic" />
-
-            <ActivityIndicator 
-                IsRunning="{Binding IsBusy}" 
-                IsVisible="{Binding IsBusy}"
-                Color="#FFFFFF" />
-
+            <Label Text="{Binding ServerStatus}"
+                   FontSize="12"
+                   TextColor="{Binding ServerStatus, Converter={StaticResource ServerStatusColorConverter}}" />
         </StackLayout>
-    </ScrollView>
+    </Grid>
 </ContentPage>
