@@ -1,4 +1,3 @@
-﻿using System.Windows.Input;
 using SmartShop.MAUI.Views;
 
 namespace SmartShop.MAUI;
