@@ -7,17 +7,11 @@
              BackgroundColor="Transparent"
              NavigationPage.HasNavigationBar="False"
              Shell.NavBarIsVisible="False"
-             Shell.FlyoutBehavior="Disabled">
+             Shell.FlyoutBehavior="Disabled"
+             x:DataType="vm:LoginViewModel">
 
     <ContentPage.Background>
-        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Color="#000428" Offset="0.0" />
-            <!-- Midnight Blue -->
-            <GradientStop Color="#004e92" Offset="0.5" />
-            <!-- Deep Sky Blue -->
-            <GradientStop Color="#00c6ff" Offset="1.0" />
-            <!-- Light Cyan -->
-        </LinearGradientBrush>
+    <StaticResource Key="LoginPageBackgroundBrush" />
     </ContentPage.Background>
 
     <Grid>
@@ -43,7 +37,7 @@
 
                 <Label Text="{Binding AlertMessage}" 
                        TextColor="#FFD700" 
-                       IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}" 
+                       IsVisible="{Binding AlertMessage, Converter={StaticResource StringNotEmptyConverter}}" 
                        HorizontalTextAlignment="Center"/>
 
                 <Button Text="Login"

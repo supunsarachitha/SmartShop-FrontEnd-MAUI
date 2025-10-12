@@ -31,6 +31,11 @@ public static class MauiProgram
             var apiService = sp.GetRequiredService<ApiService>();
             return new AuthService(apiService, AppConstants.ApiBaseUrl);
         });
+        builder.Services.AddSingleton<ServerStatusService>(sp =>
+        {
+            var serverStatusService = sp.GetRequiredService<ApiService>();
+            return new ServerStatusService(serverStatusService, AppConstants.ApiBaseUrl);
+        });
 
         // Register view models
         builder.Services.AddTransient<LoginViewModel>();
