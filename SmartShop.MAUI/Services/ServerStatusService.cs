@@ -1,5 +1,3 @@
-﻿ 
-
 namespace SmartShop.MAUI.Services
 {
 
