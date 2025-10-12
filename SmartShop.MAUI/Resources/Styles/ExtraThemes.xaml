@@ -45,7 +45,6 @@
 
 
     <!-- Home Page Background Brush -->
-    <!-- Home Page Background Brush -->
     <LinearGradientBrush x:Key="HomePageBackgroundBrush" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Color="#EAF2F8" Offset="0.0" />
         <!-- Soft Light Blue -->
