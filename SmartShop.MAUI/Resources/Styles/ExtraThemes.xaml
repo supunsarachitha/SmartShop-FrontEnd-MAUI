@@ -64,7 +64,7 @@
     <Style x:Key="HomePageBorderStyle" TargetType="Border">
         <Setter Property="StrokeShape" Value="RoundRectangle 16" />
         <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
-        <!-- Rich Blue -->
+        <!-- White for accents -->
         <Setter Property="Padding" Value="15" />
         <Setter Property="Shadow">
             <Setter.Value>
