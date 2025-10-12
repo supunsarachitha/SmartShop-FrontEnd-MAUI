@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:SmartShop.MAUI.Views"
     Title="SmartShop.MAUI"
     BackgroundColor="#004e92"
-    >  
+    >
 
     <ShellContent
         Title="Login"
