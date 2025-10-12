@@ -1,4 +1,5 @@
-﻿using SmartShop.MAUI.Models.Requests;
+﻿using Microsoft.Extensions.Logging;
+using SmartShop.MAUI.Models.Requests;
 using SmartShop.MAUI.Models.Responses;
 
 
@@ -8,11 +9,13 @@ namespace SmartShop.MAUI.Services
     {
         private readonly ApiService _apiService;
         private readonly string _baseUrl;
+        private readonly ILogger<AuthService> _logger;
 
-        public AuthService(ApiService apiService, string baseUrl)
+        public AuthService(ApiService apiService, string baseUrl, ILogger<AuthService> logger)
         {
             _apiService = apiService;
             _baseUrl = baseUrl;
+            _logger = logger;
         }
 
         public async Task<ApplicationResponse<T>> LoginAsync<T>(string username, string password)
@@ -27,32 +30,35 @@ namespace SmartShop.MAUI.Services
 
             try
             {
+                _logger.LogInformation("Attempting to log in user: {Username}", username);
+
                 var response = await _apiService.PostAsync<LoginRequest, ApplicationResponse<T>>(url, data);
 
                 if (response == null)
                 {
+                    _logger.LogWarning("No response from server for login attempt.");
                     return new ApplicationResponse<T>
                     {
                         Success = false,
                         Message = "No response from server.",
                         Data = default,
-                        Errors = new List<ErrorDetail>(), // Initialize an empty list instead of null
+                        Errors = new List<ErrorDetail>(),
                         StatusCode = null
                     };
                 }
 
+                _logger.LogInformation("Login successful for user: {Username}", username);
                 return response;
             }
             catch (Exception ex)
             {
-                // Log the exception (e.g., using a logging framework)
-                Console.WriteLine(ex); // Use the exception to avoid CS0168 warning
+                _logger.LogError(ex, "An error occurred while logging in user: {Username}", username);
                 return new ApplicationResponse<T>
                 {
                     Success = false,
                     Message = "An error occurred while logging in",
                     Data = default,
-                    Errors = new List<ErrorDetail>(), // Initialize an empty list instead of null
+                    Errors = new List<ErrorDetail>(),
                     StatusCode = null
                 };
             }
@@ -62,21 +68,25 @@ namespace SmartShop.MAUI.Services
         {
             var url = $"{_baseUrl}/api/Auth/resetPassword";
 
-            var data = new { UserName = username }; // Payload for the request
+            var data = new { UserName = username };
 
             try
             {
+                _logger.LogInformation("Sending password reset link to user: {Username}", username);
+
                 var response = await _apiService.PostAsync<object, ApplicationResponse<object>>(url, data);
 
                 if (response == null || !response.Success)
                 {
+                    _logger.LogWarning("Failed to send password reset link to user: {Username}", username);
                     throw new InvalidOperationException(response?.Message ?? "Failed to send password reset link.");
                 }
+
+                _logger.LogInformation("Password reset link sent successfully to user: {Username}", username);
             }
             catch (Exception ex)
             {
-                // Log the exception and rethrow
-                Console.WriteLine($"Error sending password reset link: {ex.Message}");
+                _logger.LogError(ex, "An error occurred while sending password reset link to user: {Username}", username);
                 throw new ApplicationException("An error occurred while sending the password reset link.", ex);
             }
         }

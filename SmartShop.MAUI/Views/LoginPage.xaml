@@ -24,7 +24,7 @@
                        HorizontalOptions="Center"
                        TextColor="#FFFFFF" />
 
-                <Entry Placeholder="Username"
+                <Entry Placeholder="User Name"
                        Text="{Binding Username}"
                        BackgroundColor="#004e92" 
                        TextColor="#FFFFFF" />
