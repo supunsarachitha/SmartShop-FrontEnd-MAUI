@@ -94,6 +94,8 @@ namespace SmartShop.MAUI.ViewModels
         [RelayCommand]
         private async Task Login()
         {
+            await Shell.Current.GoToAsync("//HomePage", true);
+
             if (IsBusy) return;
 
             IsBusy = true;
