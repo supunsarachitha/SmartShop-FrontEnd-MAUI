@@ -58,7 +58,7 @@
     <Color x:Key="PrimaryTextColor">#0056B3</Color>
     <!-- Dark Gray for better readability -->
     <Color x:Key="AccentColor">#FFFFFF</Color>
-    <!-- Rich Blue for accents -->
+    <!-- White for accents -->
 
     <!-- Border Style -->
     <Style x:Key="HomePageBorderStyle" TargetType="Border">
