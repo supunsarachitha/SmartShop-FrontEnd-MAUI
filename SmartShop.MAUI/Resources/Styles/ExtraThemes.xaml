@@ -56,7 +56,7 @@
 
     <!-- Colors -->
     <Color x:Key="PrimaryTextColor">#0056B3</Color>
-    <!-- Dark Gray for better readability -->
+    <!-- Dark Blue for better readability -->
     <Color x:Key="AccentColor">#FFFFFF</Color>
     <!-- White for accents -->
 
