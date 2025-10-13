@@ -1,9 +1,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using SmartShop.MAUI.Helpers;
 using SmartShop.MAUI.Models.Responses;
 using SmartShop.MAUI.Services;
 using SmartShop.MAUI.Views;
+using System.Reflection.Metadata;
 
 namespace SmartShop.MAUI.ViewModels
 {
@@ -117,15 +119,20 @@ namespace SmartShop.MAUI.ViewModels
                 }
                 else
                 {
-                    var result = await _authService.LoginAsync<LoginResponse>(Username, Password);
+                    var result = await _authService.LoginAsync<UserAuthenticationResponse>(Username, Password);
 
-                    if (result != null && result.Success && result.Data != null)
+                    if (result != null && result.Success && result.Data != null && result.Data.User != null)
                     {
                         string? token = result.Data.Token;
 
                         if (!string.IsNullOrEmpty(token))
                         {
                             _logger.LogInformation("Login successful for user: {Username}", Username);
+
+                            //store login details.
+                            AppConstants.AuthToken = token;
+                            AppConstants.CurrentUser = result.Data.User;
+
                             await Shell.Current.GoToAsync("//HomePage", true);
                         }
                         else
