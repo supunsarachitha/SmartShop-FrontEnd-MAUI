@@ -5,7 +5,7 @@ namespace SmartShop.MAUI.ViewModels
 {
     public class AppShellViewModel : ObservableObject
     {
-        private string _loggedInUserName;
+        private string _loggedInUserName = string.Empty;
 
         public string LoggedInUserName
         {
