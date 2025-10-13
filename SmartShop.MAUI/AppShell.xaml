@@ -6,7 +6,25 @@
     xmlns:local="clr-namespace:SmartShop.MAUI.Views"
     Title="SmartShop.MAUI"
     BackgroundColor="#004e92"
-    >
+    xmlns:vm="clr-namespace:SmartShop.MAUI.ViewModels"
+    x:DataType="vm:AppShellViewModel">
+
+    <!-- Flyout Header -->
+    <Shell.FlyoutHeader>
+        <Grid BackgroundColor="#004e92" Padding="20">
+            <VerticalStackLayout>
+                <Label 
+                    Text="Welcome,"
+                    FontSize="16"
+                    TextColor="White"
+                    FontAttributes="Bold" />
+                <Label 
+                    Text="{Binding LoggedInUserName}"
+                    FontSize="14"
+                    TextColor="White" />
+            </VerticalStackLayout>
+        </Grid>
+    </Shell.FlyoutHeader>
 
     <ShellContent
         Title="Login"
@@ -25,10 +43,22 @@
         Title="HomePage"
         ContentTemplate="{DataTemplate local:HomePage}"
         Route="HomePage" />
-    
 
-    <MenuItem
-        Text="Logout"
-        x:Name="LogoutMenuItem"
-        Clicked="LogoutMenuItem_Clicked"/>
+    <!-- Flyout Footer -->
+    <Shell.FlyoutFooter>
+        <Grid Padding="10" BackgroundColor="#004e92">
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Button
+                    Text="Logout"
+                    x:Name="LogoutMenuItem"
+                    Clicked="LogoutMenuItem_Clicked"
+                    TextColor="Black"
+                    BackgroundColor="White"
+                    CornerRadius="10"
+                    Padding="10,5"
+                    WidthRequest="150"
+                    HorizontalOptions="Center" />
+            </StackLayout>
+        </Grid>
+    </Shell.FlyoutFooter>
 </Shell>

@@ -14,6 +14,7 @@ namespace SmartShop.MAUI.ViewModels
         private readonly AuthService _authService;
         private readonly ServerStatusService _serverStatusService;
         private readonly ILogger<LoginViewModel> _logger;
+        private readonly AppShellViewModel _appShellViewModel;
 
         private string _username = string.Empty;
         public string Username
@@ -57,12 +58,13 @@ namespace SmartShop.MAUI.ViewModels
             set => SetProperty(ref _serverStatus, value);
         }
 
-        public LoginViewModel(AuthService authService, ServerStatusService serverStatusService, ILogger<LoginViewModel> logger)
+        public LoginViewModel(AuthService authService, ServerStatusService serverStatusService, ILogger<LoginViewModel> logger, AppShellViewModel appShellViewModel)
         {
             _authService = authService;
             _serverStatusService = serverStatusService;
             _logger = logger;
             AppVersion = VersionTracking.CurrentVersion;
+            _appShellViewModel = appShellViewModel;
 
             // Start checking server status
             _ = CheckServerStatus();
@@ -132,6 +134,8 @@ namespace SmartShop.MAUI.ViewModels
                             //store login details.
                             AppConstants.AuthToken = token;
                             AppConstants.CurrentUser = result.Data.User;
+
+                            _appShellViewModel.UpdateProfileName();
 
                             await Shell.Current.GoToAsync("//HomePage", true);
                         }

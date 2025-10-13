@@ -1,14 +1,21 @@
-﻿namespace SmartShop.MAUI;
+﻿using SmartShop.MAUI.ViewModels;
+
+namespace SmartShop.MAUI;
 
 public partial class App : Application
 {
-	public App()
+	private AppShellViewModel _appShellViewModel;
+
+
+    public App(AppShellViewModel homePageViewModel)
 	{
 		InitializeComponent();
-	}
+        _appShellViewModel = homePageViewModel;
+
+    }
 
 	protected override Window CreateWindow(IActivationState? activationState)
 	{
-		return new Window(new AppShell());
+		return new Window(new AppShell(_appShellViewModel));
 	}
 }

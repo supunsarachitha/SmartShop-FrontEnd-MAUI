@@ -45,7 +45,9 @@ public static class MauiProgram
         });
 
         // Register view models
-        builder.Services.AddTransient<LoginViewModel>();
-		return builder.Build();
+        builder.Services.AddTransient<LoginViewModel>(); 
+        builder.Services.AddSingleton<AppShellViewModel>();
+
+        return builder.Build();
 	}
 }
