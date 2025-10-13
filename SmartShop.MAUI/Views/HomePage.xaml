@@ -9,6 +9,10 @@
              NavigationPage.HasNavigationBar="False"
              Shell.NavBarIsVisible="False">
 
+    <ContentPage.BindingContext>
+        <vm:HomePageViewModel />
+    </ContentPage.BindingContext>
+
     <ContentPage.Content>
         <VerticalStackLayout Padding="20" Spacing="40">
             <!-- Header -->
@@ -34,6 +38,9 @@
                 <Border Grid.Row="0" Grid.Column="0"
                         Shadow="True"
                         Style="{StaticResource HomePageBorderStyle}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToProfileCommand}" />
+                    </Border.GestureRecognizers>
                     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
                         <Label Text="&#xf007;"
                                Style="{StaticResource HomePageIconStyle}" />
@@ -46,6 +53,9 @@
                 <Border Grid.Row="0" Grid.Column="1"
                         Shadow="True"
                         Style="{StaticResource HomePageBorderStyle}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToInvoiceCommand}" />
+                    </Border.GestureRecognizers>
                     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
                         <Label Text="&#xf571;"
                                Style="{StaticResource HomePageIconStyle}" />
@@ -58,6 +68,9 @@
                 <Border Grid.Row="1" Grid.Column="0"
                         Shadow="True"
                         Style="{StaticResource HomePageBorderStyle}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToHistoryCommand}" />
+                    </Border.GestureRecognizers>
                     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
                         <Label Text="&#xf1da;"
                                Style="{StaticResource HomePageIconStyle}" />
@@ -70,6 +83,9 @@
                 <Border Grid.Row="1" Grid.Column="1"
                         Shadow="True"
                         Style="{StaticResource HomePageBorderStyle}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToReportsCommand}" />
+                    </Border.GestureRecognizers>
                     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
                         <Label Text="&#xf201;"
                                Style="{StaticResource HomePageIconStyle}" />
@@ -82,6 +98,9 @@
                 <Border Grid.Row="2" Grid.Column="0"
                         Shadow="True"
                         Style="{StaticResource HomePageBorderStyle}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToSettingsCommand}" />
+                    </Border.GestureRecognizers>
                     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
                         <Label Text="&#xf013;"
                                Style="{StaticResource HomePageIconStyle}" />
@@ -91,8 +110,6 @@
                 </Border>
 
             </Grid>
-
-
         </VerticalStackLayout>
     </ContentPage.Content>
 </ContentPage>

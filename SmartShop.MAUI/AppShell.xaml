@@ -44,6 +44,11 @@
         ContentTemplate="{DataTemplate local:HomePage}"
         Route="HomePage" />
 
+    <ShellContent
+        Title="ProfilePage"
+        ContentTemplate="{DataTemplate local:ProfilePage}"
+        Route="ProfilePage"/>
+
     <!-- Flyout Footer -->
     <Shell.FlyoutFooter>
         <Grid Padding="10" BackgroundColor="#004e92">

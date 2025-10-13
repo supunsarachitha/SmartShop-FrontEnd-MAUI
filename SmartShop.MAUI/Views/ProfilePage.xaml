@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SmartShop.MAUI.ViewModels"
+             x:Class="SmartShop.MAUI.Views.ProfilePage"
+             Title="Profile"
+             
+             x:DataType="vm:ProfilePageViewModel"
+             NavigationPage.HasNavigationBar="True"
+             Shell.NavBarIsVisible="True"
+             >
+
+    <ContentPage.BindingContext>
+        <vm:ProfilePageViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Border Stroke="#e0e0e0" StrokeThickness="1" BackgroundColor="#f0f0f0" Padding="15" StrokeShape="RoundRectangle 10">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Username:" FontAttributes="Bold" />
+                    <Label Text="{Binding User.UserName}" FontSize="16" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Stroke="#e0e0e0" StrokeThickness="1" BackgroundColor="#f0f0f0" Padding="15" StrokeShape="RoundRectangle 10">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Email:" FontAttributes="Bold" />
+                    <Label Text="{Binding User.Email}" FontSize="16" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Stroke="#e0e0e0" StrokeThickness="1" BackgroundColor="#f0f0f0" Padding="15" StrokeShape="RoundRectangle 10">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Name:" FontAttributes="Bold" />
+                    <Label Text="{Binding User.Name}" FontSize="16" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Stroke="#e0e0e0" StrokeThickness="1" BackgroundColor="#f0f0f0" Padding="15" StrokeShape="RoundRectangle 10">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Last Login Date:" FontAttributes="Bold" />
+                    <Label Text="{Binding User.LastLoginDate, StringFormat='{0:MM/dd/yyyy HH:mm}'}" FontSize="16" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Stroke="#e0e0e0" StrokeThickness="1" BackgroundColor="#f0f0f0" Padding="15" StrokeShape="RoundRectangle 10">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Account Status:" FontAttributes="Bold" />
+                    <Label Text="{Binding User.IsActive, Converter={StaticResource BoolToStatusConverter}}" FontSize="16" />
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
