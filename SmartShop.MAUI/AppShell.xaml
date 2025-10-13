@@ -50,8 +50,7 @@
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
                 <Button
                     Text="Logout"
-                    x:Name="LogoutMenuItem"
-                    Clicked="LogoutMenuItem_Clicked"
+                    Command="{Binding LogoutCommand}"
                     TextColor="Black"
                     BackgroundColor="White"
                     CornerRadius="10"

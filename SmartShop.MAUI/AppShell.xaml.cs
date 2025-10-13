@@ -11,10 +11,5 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(ResetPasswordPage), typeof(ResetPasswordPage));
         BindingContext = appShellViewModel;
     }
- 
- 
-    private async void LogoutMenuItem_Clicked(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync("//LoginPage");
-    }
+  
 }
