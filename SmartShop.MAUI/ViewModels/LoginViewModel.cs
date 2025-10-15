@@ -5,7 +5,6 @@ using SmartShop.MAUI.Helpers;
 using SmartShop.MAUI.Models.Responses;
 using SmartShop.MAUI.Services;
 using SmartShop.MAUI.Views;
-using System.Reflection.Metadata;
 
 namespace SmartShop.MAUI.ViewModels
 {
@@ -98,13 +97,11 @@ namespace SmartShop.MAUI.ViewModels
         [RelayCommand]
         private async Task Login()
         {
-            await Shell.Current.GoToAsync("//HomePage", true);
-
             if (IsBusy) return;
 
             IsBusy = true;
             AlertMessage = string.Empty;
-
+             
             try
             {
                 _logger.LogInformation("Login attempt started for user: {Username}", Username);
@@ -121,19 +118,20 @@ namespace SmartShop.MAUI.ViewModels
                 }
                 else
                 {
-                    var result = await _authService.LoginAsync<UserAuthenticationResponse>(Username, Password);
+                    var userAuthResponse = await _authService.LoginAsync<UserAuthenticationResponse>(Username, Password);
 
-                    if (result != null && result.Success && result.Data != null && result.Data.User != null)
+                    if (userAuthResponse != null && userAuthResponse.Success && userAuthResponse.Data != null && userAuthResponse.Data.User != null)
                     {
-                        string? token = result.Data.Token;
+                        string? token = userAuthResponse.Data.Token;
 
                         if (!string.IsNullOrEmpty(token))
                         {
                             _logger.LogInformation("Login successful for user: {Username}", Username);
+                             
+                            PreferenceHelper.SetPreference("UserAuthenticationResponse", userAuthResponse.Data);
 
-                            //store login details.
                             AppConstants.AuthToken = token;
-                            AppConstants.CurrentUser = result.Data.User;
+                            AppConstants.CurrentUser = userAuthResponse.Data.User;
 
                             _appShellViewModel.UpdateProfileName();
 
@@ -147,8 +145,8 @@ namespace SmartShop.MAUI.ViewModels
                     }
                     else
                     {
-                        AlertMessage = result?.Message ?? "Invalid username or password.";
-                        _logger.LogWarning("Login failed: {Message}", result?.Message);
+                        AlertMessage = userAuthResponse?.Message ?? "Invalid username or password.";
+                        _logger.LogWarning("Login failed: {Message}", userAuthResponse?.Message);
                     }
                 }
             }
@@ -164,7 +162,7 @@ namespace SmartShop.MAUI.ViewModels
                 IsBusy = false;
             }
         }
-
+         
         [RelayCommand]
         private async Task ForgotPassword()
         {
