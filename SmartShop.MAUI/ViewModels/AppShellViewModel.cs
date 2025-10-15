@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using SmartShop.MAUI.Helpers;
 using SmartShop.MAUI.Models.Responses;
 using SmartShop.MAUI.Services;
-using System.Text.Json;
 using System.Windows.Input;
 
 namespace SmartShop.MAUI.ViewModels
