@@ -8,6 +8,7 @@
             <local:InverseBooleanConverter x:Key="InverseBooleanConverter" />
             <local:StringNotEmptyConverter x:Key="StringNotEmptyConverter" />
             <local:ServerStatusColorConverter x:Key="ServerStatusColorConverter" />
+            <local:BoolToStatusConverter x:Key="BoolToStatusConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />

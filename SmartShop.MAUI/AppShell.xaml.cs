@@ -1,19 +1,33 @@
 using SmartShop.MAUI.Views;
+using SmartShop.MAUI.ViewModels;
 
 namespace SmartShop.MAUI;
 
 public partial class AppShell : Shell
 {
-    public AppShell()
+    private readonly AppShellViewModel _appShellViewModel;
+
+    public AppShell(AppShellViewModel appShellViewModel)
     {
         InitializeComponent();
         Routing.RegisterRoute(nameof(ResetPasswordPage), typeof(ResetPasswordPage));
-
+        BindingContext = appShellViewModel;
+        _appShellViewModel = appShellViewModel;
     }
- 
- 
-    private async void LogoutMenuItem_Clicked(object sender, EventArgs e)
+
+    protected async override void OnAppearing()
     {
-        await Shell.Current.GoToAsync("//LoginPage");
+        base.OnAppearing();
+
+        if (await _appShellViewModel.IsUserLoggedInAsync())
+        {
+            // Navigate to HomePage if the user is already logged in
+            await GoToAsync("//HomePage");
+        }
+        else
+        {
+            // Navigate to LoginPage if the user is not logged in
+            await GoToAsync("//LoginPage");
+        }
     }
 }

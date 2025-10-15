@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using SmartShop.MAUI.Helpers;
 using SmartShop.MAUI.Models.Responses;
 using SmartShop.MAUI.Services;
 using SmartShop.MAUI.Views;
@@ -12,6 +13,7 @@ namespace SmartShop.MAUI.ViewModels
         private readonly AuthService _authService;
         private readonly ServerStatusService _serverStatusService;
         private readonly ILogger<LoginViewModel> _logger;
+        private readonly AppShellViewModel _appShellViewModel;
 
         private string _username = string.Empty;
         public string Username
@@ -55,12 +57,13 @@ namespace SmartShop.MAUI.ViewModels
             set => SetProperty(ref _serverStatus, value);
         }
 
-        public LoginViewModel(AuthService authService, ServerStatusService serverStatusService, ILogger<LoginViewModel> logger)
+        public LoginViewModel(AuthService authService, ServerStatusService serverStatusService, ILogger<LoginViewModel> logger, AppShellViewModel appShellViewModel)
         {
             _authService = authService;
             _serverStatusService = serverStatusService;
             _logger = logger;
             AppVersion = VersionTracking.CurrentVersion;
+            _appShellViewModel = appShellViewModel;
 
             // Start checking server status
             _ = CheckServerStatus();
@@ -94,13 +97,11 @@ namespace SmartShop.MAUI.ViewModels
         [RelayCommand]
         private async Task Login()
         {
-            await Shell.Current.GoToAsync("//HomePage", true);
-
             if (IsBusy) return;
 
             IsBusy = true;
             AlertMessage = string.Empty;
-
+             
             try
             {
                 _logger.LogInformation("Login attempt started for user: {Username}", Username);
@@ -117,15 +118,23 @@ namespace SmartShop.MAUI.ViewModels
                 }
                 else
                 {
-                    var result = await _authService.LoginAsync<LoginResponse>(Username, Password);
+                    var userAuthResponse = await _authService.LoginAsync<UserAuthenticationResponse>(Username, Password);
 
-                    if (result != null && result.Success && result.Data != null)
+                    if (userAuthResponse != null && userAuthResponse.Success && userAuthResponse.Data != null && userAuthResponse.Data.User != null)
                     {
-                        string? token = result.Data.Token;
+                        string? token = userAuthResponse.Data.Token;
 
                         if (!string.IsNullOrEmpty(token))
                         {
                             _logger.LogInformation("Login successful for user: {Username}", Username);
+                             
+                            await PreferenceHelper.SetSecurePreferenceAsync("UserAuthenticationResponse", userAuthResponse.Data);
+
+                            AppConstants.AuthToken = token;
+                            AppConstants.CurrentUser = userAuthResponse.Data.User;
+
+                            _appShellViewModel.UpdateProfileName();
+
                             await Shell.Current.GoToAsync("//HomePage", true);
                         }
                         else
@@ -136,8 +145,8 @@ namespace SmartShop.MAUI.ViewModels
                     }
                     else
                     {
-                        AlertMessage = result?.Message ?? "Invalid username or password.";
-                        _logger.LogWarning("Login failed: {Message}", result?.Message);
+                        AlertMessage = userAuthResponse?.Message ?? "Invalid username or password.";
+                        _logger.LogWarning("Login failed: {Message}", userAuthResponse?.Message);
                     }
                 }
             }
@@ -153,7 +162,7 @@ namespace SmartShop.MAUI.ViewModels
                 IsBusy = false;
             }
         }
-
+         
         [RelayCommand]
         private async Task ForgotPassword()
         {

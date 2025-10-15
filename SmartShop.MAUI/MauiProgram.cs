@@ -3,6 +3,7 @@ using SmartShop.MAUI.Helpers;
 using SmartShop.MAUI.Services;
 using SmartShop.MAUI.ViewModels;
 using CommunityToolkit.Maui;
+using SmartShop.MAUI.Views;
 
 namespace SmartShop.MAUI;
 
@@ -45,7 +46,11 @@ public static class MauiProgram
         });
 
         // Register view models
-        builder.Services.AddTransient<LoginViewModel>();
-		return builder.Build();
+        builder.Services.AddTransient<LoginViewModel>(); 
+        builder.Services.AddSingleton<AppShellViewModel>();
+        builder.Services.AddTransient<HomePageViewModel>();
+         
+
+        return builder.Build();
 	}
 }
