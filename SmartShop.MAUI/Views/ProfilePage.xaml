@@ -10,10 +10,6 @@
              Shell.NavBarIsVisible="True"
              >
 
-    <ContentPage.BindingContext>
-        <vm:ProfilePageViewModel />
-    </ContentPage.BindingContext>
-
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
 
