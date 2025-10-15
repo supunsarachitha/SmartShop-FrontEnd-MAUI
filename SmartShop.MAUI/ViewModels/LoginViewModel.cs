@@ -128,7 +128,7 @@ namespace SmartShop.MAUI.ViewModels
                         {
                             _logger.LogInformation("Login successful for user: {Username}", Username);
                              
-                            PreferenceHelper.SetPreference("UserAuthenticationResponse", userAuthResponse.Data);
+                            await PreferenceHelper.SetSecurePreferenceAsync("UserAuthenticationResponse", userAuthResponse.Data);
 
                             AppConstants.AuthToken = token;
                             AppConstants.CurrentUser = userAuthResponse.Data.User;

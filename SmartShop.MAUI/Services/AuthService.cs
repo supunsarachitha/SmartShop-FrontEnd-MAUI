@@ -100,9 +100,9 @@ namespace SmartShop.MAUI.Services
         /// validates its contents. If valid credentials are found, the authentication token and user information are
         /// loaded into the application constants.</remarks>
         /// <returns><see langword="true"/> if valid user credentials are found and loaded; otherwise, <see langword="false"/>.</returns>
-        public bool HasPreviousCredentionals()
+        public async Task<bool> HasPreviousCredentionalsAsync()
         {
-            var userAuthResponseJson = PreferenceHelper.GetPreference("UserAuthenticationResponse", string.Empty);
+            var userAuthResponseJson = await PreferenceHelper.GetSecurePreferenceAsync<string>("UserAuthenticationResponse", string.Empty);
 
             if (!string.IsNullOrEmpty(userAuthResponseJson))
             {
@@ -118,7 +118,6 @@ namespace SmartShop.MAUI.Services
             }
 
             return false;
-
         }
     }
 }

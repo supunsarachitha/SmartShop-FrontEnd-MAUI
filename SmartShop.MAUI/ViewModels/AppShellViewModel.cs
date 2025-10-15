@@ -36,14 +36,13 @@ namespace SmartShop.MAUI.ViewModels
 
         private async Task LogoutAsync()
         {
-            Preferences.Remove("UserAuthenticationResponse");
+            SecureStorage.Remove("UserAuthenticationResponse");
             await Shell.Current.GoToAsync("//LoginPage");
-
         }
 
-        public bool IsUserLoggedIn()
+        public async Task<bool> IsUserLoggedInAsync()
         {
-            if (_authService.HasPreviousCredentionals())
+            if (await _authService.HasPreviousCredentionalsAsync())
             {
                 UpdateProfileName();
                 return true;
