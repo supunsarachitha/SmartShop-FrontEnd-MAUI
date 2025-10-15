@@ -9,9 +9,6 @@
              NavigationPage.HasNavigationBar="False"
              Shell.NavBarIsVisible="False">
 
-    <ContentPage.BindingContext>
-        <vm:HomePageViewModel />
-    </ContentPage.BindingContext>
 
     <ContentPage.Content>
         <VerticalStackLayout Padding="20" Spacing="40">
