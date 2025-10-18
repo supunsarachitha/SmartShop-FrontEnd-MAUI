@@ -10,64 +10,78 @@
              Shell.FlyoutBehavior="Disabled"
              x:DataType="vm:LoginViewModel">
 
-    <ContentPage.Background>
-    <StaticResource Key="LoginPageBackgroundBrush" />
-    </ContentPage.Background>
+    <!--<ContentPage.Background>
+        <StaticResource Key="LoginPageBackgroundBrush" />
+    </ContentPage.Background>-->
 
-    <Grid>
+    <Grid MaximumWidthRequest="350" Margin="8,8,8,8" HorizontalOptions="Fill">
         <!-- Main Content -->
-        <ScrollView Grid.Row="0">
-            <StackLayout Padding="30" Spacing="20" VerticalOptions="Center">
+        <ScrollView Grid.Row="0" >
+            <StackLayout Padding="24" Spacing="16" VerticalOptions="Center">
+
 
                 <Label Text="Welcome" 
                        FontSize="24" 
+                       FontAttributes="Bold"
                        HorizontalOptions="Center"
-                       TextColor="#FFFFFF" />
+                       FontFamily="Regular"/>
 
-                <Entry Placeholder="User Name"
-                       Text="{Binding Username}"
-                       BackgroundColor="#004e92" 
-                       TextColor="#FFFFFF" />
+                <Label Text="Please login with registered account"
+                        FontSize="Default"
+                        HorizontalOptions="Center"
+                        TextColor="Gray" />
 
-                <Entry Placeholder="Password"
-                       Text="{Binding Password}"
+                <Entry Placeholder="Enter your email or user name"
+                       Keyboard="Email"
+                       FontSize="Default"
+                       Text="{Binding Username}" 
+                        />
+
+                <Entry Placeholder="Enter your password"
                        IsPassword="True"
-                       BackgroundColor="#004e92"  
-                       TextColor="#FFFFFF" />
+                       FontSize="Default"
+                       Text="{Binding Password}"   
+                        />
 
+                
                 <Label Text="{Binding AlertMessage}" 
-                       TextColor="#FFD700" 
+                       TextColor="Red" 
                        IsVisible="{Binding AlertMessage, Converter={StaticResource StringNotEmptyConverter}}" 
-                       HorizontalTextAlignment="Center"/>
+                       HorizontalTextAlignment="Center"
+                       FontSize="Default"/>
 
-                <Button Text="Login"
-                        Command="{Binding LoginCommand}"
-                        Style="{StaticResource LoginButtonStyle}"
-                        IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" />
+                <Button Text="Sign In"
+                        Command="{Binding LoginCommand}" 
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" 
+                        CornerRadius="8"
+                        FontAttributes="Bold"
+                        FontSize="Default"/>
 
-                <Button Text="Forgot Password"
+                <Button Text="Forgot Password?"
                         Command="{Binding ForgotPasswordCommand}"
                         BackgroundColor="Transparent"
-                        TextColor="#FFFFFF"  
-                        FontAttributes="Italic" />
+                        HorizontalOptions="End"
+                        TextColor="Gray"
+                        FontSize="Default" />
 
                 <ActivityIndicator 
                     IsRunning="{Binding IsBusy}" 
-                    IsVisible="{Binding IsBusy}"
-                    Color="#FFFFFF" />
+                    IsVisible="{Binding IsBusy}" />
             </StackLayout>
         </ScrollView>
 
         <!-- App Version and Server Status -->
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Grid.Row="1" Spacing="10">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Grid.Row="1" Spacing="5">
+            <Label Text="Version:"
+                   FontSize="10"/>
             <Label Text="{Binding AppVersion}"
-                   FontSize="12"
-                   TextColor="#FFFFFF" />
+                   FontSize="10"/>
             <Label Text="|"
-                   FontSize="12"
-                   TextColor="#FFFFFF" />
+                   FontSize="10"/>
+            <Label Text="Server Status:"
+                   FontSize="10" />
             <Label Text="{Binding ServerStatus}"
-                   FontSize="12"
+                   FontSize="10"
                    TextColor="{Binding ServerStatus, Converter={StaticResource ServerStatusColorConverter}}" />
         </StackLayout>
     </Grid>
