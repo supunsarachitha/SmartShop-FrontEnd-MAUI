@@ -48,8 +48,10 @@ public static class MauiProgram
         // Register view models
         builder.Services.AddTransient<LoginViewModel>(); 
         builder.Services.AddSingleton<AppShellViewModel>();
-        builder.Services.AddTransient<HomePageViewModel>();
-         
+        builder.Services.AddTransient<HomePageViewModel>(); //A new instance of the ViewModel is created each time the page is navigated to.
+        builder.Services.AddTransient<ProfilePageViewModel>();
+        builder.Services.AddTransient<InvoicePageViewModel>();
+
 
         return builder.Build();
 	}

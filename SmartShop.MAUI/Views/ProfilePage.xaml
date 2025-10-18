@@ -9,44 +9,78 @@
              NavigationPage.HasNavigationBar="True"
              Shell.NavBarIsVisible="True"
              >
+    <ContentPage.Resources>
+        <!-- Card Style -->
+        <Style x:Key="InfoCardStyle" TargetType="Border">
+            <Setter Property="Stroke" Value="#e0e0e0" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="BackgroundColor" Value="#f9f9f9" />
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="StrokeShape">
+                <Setter.Value>
+                    <RoundRectangle CornerRadius="12" />
+                </Setter.Value>
+            </Setter>
+        </Style>
 
+        <!-- Label Styles -->
+        <Style x:Key="InfoLabelHeader" TargetType="Label">
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="#333333" />
+        </Style>
+
+        <Style x:Key="InfoLabelValue" TargetType="Label">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="#666666" />
+        </Style>
+    </ContentPage.Resources>
+    
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Style="{StaticResource WindowsLayoutStyle}">
 
-            <Border Stroke="#e0e0e0" StrokeThickness="1" BackgroundColor="#f0f0f0" Padding="15" StrokeShape="RoundRectangle 10">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Username:" FontAttributes="Bold" />
-                    <Label Text="{Binding User.UserName}" FontSize="16" />
+            <!-- Username -->
+            <Border Style="{StaticResource InfoCardStyle}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Username:" Style="{StaticResource InfoLabelHeader}" />
+                    <Label Text="{Binding User.UserName}" Style="{StaticResource InfoLabelValue}" />
                 </VerticalStackLayout>
             </Border>
 
-            <Border Stroke="#e0e0e0" StrokeThickness="1" BackgroundColor="#f0f0f0" Padding="15" StrokeShape="RoundRectangle 10">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Email:" FontAttributes="Bold" />
-                    <Label Text="{Binding User.Email}" FontSize="16" />
+            <!-- Email -->
+            <Border Style="{StaticResource InfoCardStyle}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Email:" Style="{StaticResource InfoLabelHeader}" />
+                    <Label Text="{Binding User.Email}" Style="{StaticResource InfoLabelValue}" />
                 </VerticalStackLayout>
             </Border>
 
-            <Border Stroke="#e0e0e0" StrokeThickness="1" BackgroundColor="#f0f0f0" Padding="15" StrokeShape="RoundRectangle 10">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Name:" FontAttributes="Bold" />
-                    <Label Text="{Binding User.Name}" FontSize="16" />
+            <!-- Name -->
+            <Border Style="{StaticResource InfoCardStyle}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Name:" Style="{StaticResource InfoLabelHeader}" />
+                    <Label Text="{Binding User.Name}" Style="{StaticResource InfoLabelValue}" />
                 </VerticalStackLayout>
             </Border>
 
-            <Border Stroke="#e0e0e0" StrokeThickness="1" BackgroundColor="#f0f0f0" Padding="15" StrokeShape="RoundRectangle 10">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Last Login Date:" FontAttributes="Bold" />
-                    <Label Text="{Binding User.LastLoginDate, StringFormat='{0:MM/dd/yyyy HH:mm}'}" FontSize="16" />
+            <!-- Last Login -->
+            <Border Style="{StaticResource InfoCardStyle}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Last Login Date:" Style="{StaticResource InfoLabelHeader}" />
+                    <Label Text="{Binding User.LastLoginDate, StringFormat='{0:MM/dd/yyyy HH:mm}'}"
+                           Style="{StaticResource InfoLabelValue}" />
                 </VerticalStackLayout>
             </Border>
 
-            <Border Stroke="#e0e0e0" StrokeThickness="1" BackgroundColor="#f0f0f0" Padding="15" StrokeShape="RoundRectangle 10">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Account Status:" FontAttributes="Bold" />
-                    <Label Text="{Binding User.IsActive, Converter={StaticResource BoolToStatusConverter}}" FontSize="16" />
+            <!-- Account Status -->
+            <Border Style="{StaticResource InfoCardStyle}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Account Status:" Style="{StaticResource InfoLabelHeader}" />
+                    <Label Text="{Binding User.IsActive, Converter={StaticResource BoolToStatusConverter}}"
+                           Style="{StaticResource InfoLabelValue}" />
                 </VerticalStackLayout>
             </Border>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
