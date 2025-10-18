@@ -5,19 +5,17 @@
              x:Class="SmartShop.MAUI.Views.HomePage"
              x:DataType="vm:HomePageViewModel"
              Title="Home"
-             Background="{StaticResource HomePageBackgroundBrush}"
              NavigationPage.HasNavigationBar="False"
              Shell.NavBarIsVisible="False">
 
 
     <ContentPage.Content>
-        <VerticalStackLayout Padding="20" Spacing="40">
+        <VerticalStackLayout Style="{StaticResource WindowsLayoutStyle }">
             <!-- Header -->
             <Label Text="Welcome to SmartShop"
-                   FontSize="32"
+                   FontSize="Title"
                    FontAttributes="Bold"
-                   HorizontalOptions="Center"
-                   TextColor="{StaticResource PrimaryTextColor}" />
+                   HorizontalOptions="Center"/>
 
             <!-- Grid for Buttons -->
             <Grid RowSpacing="30" ColumnSpacing="30">

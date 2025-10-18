@@ -4,17 +4,16 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:SmartShop.MAUI.Views"
-    Title="SmartShop.MAUI"
-    BackgroundColor="#004e92"
+    Title="SmartShop.MAUI" 
     xmlns:vm="clr-namespace:SmartShop.MAUI.ViewModels"
     x:DataType="vm:AppShellViewModel">
 
     <!-- Flyout Header -->
     <Shell.FlyoutHeader>
-        <Grid BackgroundColor="#004e92" Padding="20">
+        <Grid BackgroundColor="{StaticResource Primary}" Padding="20">
             <VerticalStackLayout>
                 <Label 
-                    Text="Welcome,"
+                    Text="Hello"
                     FontSize="16"
                     TextColor="White"
                     FontAttributes="Bold" />
@@ -40,25 +39,42 @@
         />-->
 
     <ShellContent
-        Title="HomePage"
         ContentTemplate="{DataTemplate local:HomePage}"
-        Route="HomePage" />
+        Title="Home"
+        Route="HomePage">
+        <ShellContent.Icon>
+            <FontImageSource Glyph="&#xf015;" FontFamily="FontAwesomeSolid"  Color="{StaticResource Primary}"/>
+        </ShellContent.Icon>
+    </ShellContent>
 
     <ShellContent
-        Title="ProfilePage"
-        ContentTemplate="{DataTemplate local:ProfilePage}"
-        Route="ProfilePage"/>
+         ContentTemplate="{DataTemplate local:ProfilePage}"
+        Title="Profile"
+        Route="ProfilePage">
+        <ShellContent.Icon>
+            <FontImageSource Glyph="&#xf007;" FontFamily="FontAwesomeSolid"  Color="{StaticResource Primary}"/>
+        </ShellContent.Icon>
+    </ShellContent>
+ 
+    <ShellContent
+        ContentTemplate="{DataTemplate local:InvoicePage}"
+        Title="Invoice"
+        Route="InvoicePage">
+        <ShellContent.Icon>
+            <FontImageSource Glyph="&#xf571;" FontFamily="FontAwesomeSolid"  Color="{StaticResource Primary}"/>
+        </ShellContent.Icon>
+    </ShellContent>
 
     <!-- Flyout Footer -->
     <Shell.FlyoutFooter>
-        <Grid Padding="10" BackgroundColor="#004e92">
+        <Grid Padding="10" BackgroundColor="{StaticResource Primary}">
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
                 <Button
                     Text="Logout"
                     Command="{Binding LogoutCommand}"
                     TextColor="Black"
                     BackgroundColor="White"
-                    CornerRadius="10"
+                    CornerRadius="20"
                     Padding="10,5"
                     WidthRequest="150"
                     HorizontalOptions="Center" />

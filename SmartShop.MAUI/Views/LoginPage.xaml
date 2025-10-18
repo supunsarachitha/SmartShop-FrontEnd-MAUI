@@ -17,7 +17,7 @@
     <Grid MaximumWidthRequest="350" Margin="8,8,8,8" HorizontalOptions="Fill">
         <!-- Main Content -->
         <ScrollView Grid.Row="0" >
-            <StackLayout Padding="24" Spacing="16" VerticalOptions="Center">
+            <StackLayout Style="{StaticResource WindowsLayoutStyle }" VerticalOptions="Center">
 
 
                 <Label Text="Welcome" 
@@ -35,6 +35,7 @@
                        Keyboard="Email"
                        FontSize="Default"
                        Text="{Binding Username}" 
+                       
                         />
 
                 <Entry Placeholder="Enter your password"
@@ -53,7 +54,7 @@
                 <Button Text="Sign In"
                         Command="{Binding LoginCommand}" 
                         IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" 
-                        CornerRadius="8"
+                        CornerRadius="20"
                         FontAttributes="Bold"
                         FontSize="Default"/>
 
